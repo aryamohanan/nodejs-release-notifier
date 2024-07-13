@@ -3,6 +3,7 @@ name: Daily Job
 on:
   schedule:
     - cron: '*/2 * * * *'  # Runs every two minutes
+  workflow_dispatch:
 
 jobs:
   build:
