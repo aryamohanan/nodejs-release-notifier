@@ -1,13 +1,14 @@
 const nodemailer = require('nodemailer');
 
 async function sendEmail(recipients, subject, content) {
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.GMAIL_USER ,
-        pass: process.env.GMAIL_PASSWORD,
-      },
-    });
+  console.log(`user: ${process.env.GMAIL_USER}`);
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASSWORD,
+    },
+  });
 
   try {
     for (const recipient of recipients) {
