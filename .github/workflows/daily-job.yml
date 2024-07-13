@@ -2,7 +2,7 @@ name: Daily Job
 
 on:
   schedule:
-    - cron: '0 0 * * *' 
+    - cron: '*/2 * * * *'
 
 jobs:
   build:
@@ -21,4 +21,7 @@ jobs:
         run: npm install
 
       - name: Run your application
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
         run: npm start  
