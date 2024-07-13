@@ -2,7 +2,7 @@ name: Daily Job
 
 on:
   schedule:
-    - cron: '*/2 * * * *'
+    - cron: '*/2 * * * *'  # Runs every two minutes
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'  
+          node-version: '14.x'  # Adjust the Node.js version as per your application's requirement
 
       - name: Install dependencies
         run: npm install
@@ -24,4 +24,35 @@ jobs:
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
-        run: npm start  
+        run: npm start
+
+      - name: Check for Uncommitted Changes
+        run: |
+          git diff-index --quiet HEAD || (echo "Uncommitted changes found"; exit 1)
+
+      - name: Update Version File
+        run: |
+          # Update the version file content here
+          echo "v1.0.1" > .version  # Example: Updating to version v1.0.1
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.email "aryamohanan.online@gmail.com"
+          git config --global user.name "GitHub Actions"
+          
+
+          git checkout -b version-updates  
+          git add .
+          git commit -m "Update Node.js latest version"
+          git push -u origin version-updates
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update version to v1.0.1"
+          title: "Update version to v1.0.1"
+          body: |
+            Automatic update of version file to v1.0.1 by GitHub Actions.
+          branch: "main"  # Target branch for the pull request
+          base: "main"    # Base branch for the pull request
