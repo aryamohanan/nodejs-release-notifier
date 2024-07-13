@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14.x'  # Adjust the Node.js version as per your application's requirement
+          node-version: '20'  # Adjust the Node.js version as per your application's requirement
 
       - name: Install dependencies
         run: npm install
@@ -29,17 +29,22 @@ jobs:
 
       - name: Check for Uncommitted Changes
         run: |
-          git diff-index --quiet HEAD || (echo "Uncommitted changes found"; exit 1)
+          git diff-index --quiet HEAD || (echo "Uncommitted changes found")
 
-      - name: Update Version File
+      - name: Delete version-updates branch if exists
         run: |
-          # Update the version file content here
-          echo "v1.0.1" > .version  # Example: Updating to version v1.0.1
+          if git show-ref --quiet refs/heads/version-updates; then
+            git push origin --delete version-updates
+          fi
+
+      - name: Pull latest changes
+        run: git pull origin main
+
 
       - name: Commit and Push Changes
         run: |
           git config --global user.email "aryamohanan.online@gmail.com"
-          git config --global user.name "GitHub Actions"
+          git config --global user.name "aryamohanan.online@gmail.com"
           
 
           git checkout -b version-updates  
@@ -55,5 +60,5 @@ jobs:
           title: "Update version to v1.0.1"
           body: |
             Automatic update of version file to v1.0.1 by GitHub Actions.
-          branch: "main"  # Target branch for the pull request
-          base: "main"    # Base branch for the pull request
+          base: "main"  # Target branch for the pull request
+          branch: "version-updates"    # Base branch for the pull request
