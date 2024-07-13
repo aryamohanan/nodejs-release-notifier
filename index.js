@@ -62,6 +62,13 @@ async function readSubscribersFromFile() {
     throw err;
   }
 }
+
 (async () => {
   await checkForUpdates();
 })();
+module.exports = {
+  fetchLatestVersion,
+  checkForUpdates,
+  notify,
+  readSubscribersFromFile,
+};
