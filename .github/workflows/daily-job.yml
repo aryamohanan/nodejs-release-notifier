@@ -59,5 +59,4 @@ jobs:
           title: "Update .version file"
           body: |
             Automatic update of .version file by GitHub Actions.
-          branch: "version-updates"
           base: "main"  # This should be the target branch for the PR
