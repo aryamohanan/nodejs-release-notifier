@@ -1,0 +1,27 @@
+{
+  "name": "nodejs-release-notifier",
+  "version": "1.0.0",
+  "description": "Automatically checks for new Node.js releases and sends you a notification.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "releases",
+    "lastet",
+    "update",
+    "email",
+    "notification"
+  ],
+  "author": "Arya Mohanan",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "nodemailer": "^6.9.14"
+  },
+  "devDependencies": {
+    "semver": "^7.6.2"
+  }
+}
