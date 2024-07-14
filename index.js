@@ -49,8 +49,11 @@ async function checkForUpdates() {
 }
 async function notify(latestVersion, releaseDate) {
   const subscribers = await readSubscribersFromFile();
-  const title = 'New Node.js Version Available 🎊';
-  const content = `<p>Dear Node.js Enthusiast, 👋,</p><p> A new Node.js version ${latestVersion} has been released on ${releaseDate} 🎉🎉.</p><p>Please check out the <a href="https://nodejs.org/en/about/previous-releases#looking-for-latest-release-of-a-version-branch">Node.js changelogs</a> for more details.</p>`;
+  const title = 'New Node.js Version Available 🔔';
+  const content =
+    `<p>Dear Node.js Enthusiast 👋,</p><p> A new Node.js version ${latestVersion} has been released on ${releaseDate} 🎉.` +
+    '</p><p>Please check out the <a href="https://nodejs.org/en/about/previous-releases#looking-for-latest-release-of-a-version-branch">Node.js changelogs</a> ' +
+    'for more details.</p><p>Happy coding!</p>';
   sendEmail(subscribers, title, content);
 }
 async function readSubscribersFromFile() {
