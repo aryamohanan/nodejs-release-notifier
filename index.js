@@ -3,6 +3,7 @@ const semver = require('semver');
 const sendEmail = require('./notifier');
 const util = require('util');
 const readFileAsync = util.promisify(fs.readFile);
+require('dotenv').config();
 
 async function fetchLatestVersion() {
   try {
@@ -37,7 +38,7 @@ async function checkForUpdates() {
     const [latestVersion, releaseDate] = await fetchLatestVersion();
     if (semver.gt(latestVersion, currentVersion)) {
       console.log('New version available:', latestVersion);
-      //  fs.writeFileSync('.version', latestVersion);
+      fs.writeFileSync('.version', latestVersion);
       notify(latestVersion, releaseDate);
     } else {
       console.log('No new version available.');
@@ -62,6 +63,13 @@ async function readSubscribersFromFile() {
     throw err;
   }
 }
+
 (async () => {
   await checkForUpdates();
 })();
+module.exports = {
+  fetchLatestVersion,
+  checkForUpdates,
+  notify,
+  readSubscribersFromFile,
+};

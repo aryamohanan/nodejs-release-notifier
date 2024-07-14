@@ -4,7 +4,7 @@
   "description": "Automatically checks for new Node.js releases and sends you a notification.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node index.js"
   },
   "keywords": [
@@ -18,10 +18,14 @@
   "author": "Arya Mohanan",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
-    "nodemailer": "^6.9.14"
+    "nodemailer": "^6.9.14",
+    "sinon": "^18.0.0"
   },
   "devDependencies": {
+    "chai": "^4.4.1",
+    "mocha": "^10.6.0",
     "semver": "^7.6.2"
   }
 }
