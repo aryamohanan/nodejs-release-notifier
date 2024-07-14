@@ -52,6 +52,6 @@ jobs:
 
 
       - name: create pull request
-        run: gh pr create -B main -H version-updates --title 'chore: update Node.js new version' --body 'Node.js releases a new version.'
+        run: gh pr create -B main -H version-updates --title 'update Node.js new version' --body 'Node.js releases a new version.'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
