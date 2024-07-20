@@ -13,4 +13,4 @@ npm start
 ```
 Add your email in `subscribers.txt` file for getting notified about the Node.js releases.
 Stay updated with the latest Node.js releases without lifting a finger!
-Happy coding 
+Happy coding!
