@@ -1,6 +1,3 @@
-It looks like the workflow encountered an issue because the `.version` file was not modified, leading to no changes being committed. To ensure the workflow handles this scenario gracefully, you can add a condition to check if there are changes to be staged and committed. Here's the revised workflow:
-
-```yaml
 name: Daily Job
 
 on:
