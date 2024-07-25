@@ -56,8 +56,16 @@ jobs:
           
           git checkout -b version-updates
           
-          # Stage, commit, and push changes
-          git add .version
+          # Stage all changes
+          git add .
+          
+          # Check for changes to be committed
+          if git diff-index --cached --quiet HEAD; then
+            echo "No changes to commit. Exiting."
+            exit 0
+          fi
+          
+          # Commit and push changes
           git commit -m "Update .version file"
           git push origin version-updates
 
