@@ -1,3 +1,6 @@
+It looks like the workflow encountered an issue because the `.version` file was not modified, leading to no changes being committed. To ensure the workflow handles this scenario gracefully, you can add a condition to check if there are changes to be staged and committed. Here's the revised workflow:
+
+```yaml
 name: Daily Job
 
 on:
@@ -56,8 +59,16 @@ jobs:
           
           git checkout -b version-updates
           
-          # Stage, commit, and push changes
-          git add .version
+          # Stage all changes
+          git add .
+          
+          # Check for changes to be committed
+          if git diff-index --cached --quiet HEAD; then
+            echo "No changes to commit. Exiting."
+            exit 0
+          fi
+          
+          # Commit and push changes
           git commit -m "Update .version file"
           git push origin version-updates
 
