@@ -31,27 +31,38 @@ jobs:
         id: changes
         run: |
           if git diff-index --quiet HEAD; then
-            echo "::set-output name=has_changes::false"
+            echo "has_changes=false" >> $GITHUB_ENV
           else
-            echo "::set-output name=has_changes::true"
+            echo "has_changes=true" >> $GITHUB_ENV
+          fi
+
+      - name: Log and Exit if No Changes
+        if: env.has_changes == 'false'
+        run: echo "No changes to commit. Exiting."
+
+      - name: Delete Existing Branch
+        if: env.has_changes == 'true'
+        run: |
+          if git show-ref --verify --quiet refs/heads/version-updates; then
+            git push origin --delete version-updates
+            git branch -D version-updates
           fi
 
       - name: Commit and Push Changes
-        if: steps.changes.outputs.has_changes == 'true'
+        if: env.has_changes == 'true'
         run: |
           git config --global user.email "aryamohanan.online@gmail.com"
           git config --global user.name "aryamohanan"
           
-          # Ensure no errors if branch already exists
-          git checkout -b version-updates || git checkout version-updates
+          git checkout -b version-updates
           
           # Stage, commit, and push changes
           git add .version
           git commit -m "Update .version file"
           git push origin version-updates
 
-
-      - name: create pull request
-        run: gh pr create -B main -H version-updates --title 'update Node.js new version' --body 'Node.js releases a new version.'
+      - name: Create Pull Request
+        if: env.has_changes == 'true'
+        run: gh pr create -B main -H version-updates --title 'Update Node.js version' --body 'Node.js releases a new version.'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
