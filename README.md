@@ -5,13 +5,13 @@ Automatically checks for new Node.js releases and sends you a notification.
 - Checks for new Node.js versions every day.
 - Sends email notifications if a new version is available.
 
-### Local setup:
+### Local setup
 
 ```bash
 npm install 
 npm start
 ```
-### Limitation:
+### Limitation
 
 Currently support Node.js version 18 and above. 
 
