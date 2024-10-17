@@ -11,9 +11,10 @@ Automatically checks for new Node.js releases and sends you a notification.
 npm install 
 npm start
 ```
+
 ### Limitation
 
-Currently support Node.js version 18 and above. 
+Currently support Node.js versions 18 and above. 
 
 ### Notes
 
