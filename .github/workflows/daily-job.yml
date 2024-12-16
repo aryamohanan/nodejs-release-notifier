@@ -40,16 +40,26 @@ jobs:
         if: env.has_changes == 'false'
         run: echo "No changes to commit. Exiting."
 
-      - name: Delete Existing Branch
+      - name: Install jq
         if: env.has_changes == 'true'
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Check for Existing Pull Request
+        if: env.has_changes == 'true'
+        id: check_pr
         run: |
-          if git show-ref --verify --quiet refs/heads/version-updates; then
-            git push origin --delete version-updates
-            git branch -D version-updates
+          PR_EXISTS=$(gh pr list --base main --head version-updates --json number --jq '.[].number')
+          if [ -n "$PR_EXISTS" ]; then
+            echo "pr_exists=true" >> $GITHUB_ENV
+            echo "Pull request already exists: #$PR_EXISTS"
+          else
+            echo "pr_exists=false" >> $GITHUB_ENV
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit and Push Changes
-        if: env.has_changes == 'true'
+        if: env.pr_exists == 'false' && env.has_changes == 'true'
         run: |
           git config --global user.email "aryamohanan.online@gmail.com"
           git config --global user.name "aryamohanan"
@@ -70,7 +80,11 @@ jobs:
           git push origin version-updates
 
       - name: Create Pull Request
-        if: env.has_changes == 'true'
+        if: env.pr_exists == 'false' && env.has_changes == 'true'
         run: gh pr create -B main -H version-updates --title 'Update Node.js version' --body 'Node.js releases a new version.'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip PR Creation
+        if: env.pr_exists == 'true'
+        run: echo "Pull request already exists. Skipping PR creation."
