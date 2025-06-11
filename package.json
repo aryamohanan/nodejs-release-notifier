@@ -29,6 +29,6 @@
   "devDependencies": {
     "chai": "^4.4.1",
     "mocha": "^10.6.0",
-    "semver": "^7.6.2"
+    "semver": "^7.7.2"
   }
 }
