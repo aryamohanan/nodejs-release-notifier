@@ -21,7 +21,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "dotenv": "^17.2.1",
+    "dotenv": "^17.2.2",
     "fs": "^0.0.1-security",
     "nodemailer": "^7.0.5",
     "sinon": "^21.0.0"
