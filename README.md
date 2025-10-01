@@ -10,6 +10,7 @@ Automatically checks for new Node.js releases and sends you a notification.
 ```bash
 npm install 
 npm start
+npm test
 ```
 ### Limitation:
 
