@@ -24,7 +24,7 @@
     "dotenv": "^17.2.3",
     "fs": "^0.0.1-security",
     "nodemailer": "^7.0.10",
-    "sinon": "^21.0.0"
+    "sinon": "^21.0.1"
   },
   "devDependencies": {
     "chai": "^6.2.1",
