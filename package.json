@@ -27,7 +27,7 @@
     "sinon": "^21.0.1"
   },
   "devDependencies": {
-    "chai": "^6.2.1",
+    "chai": "^6.2.2",
     "mocha": "^11.7.2",
     "semver": "^7.7.3"
   }
