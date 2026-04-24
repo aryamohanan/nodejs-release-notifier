@@ -23,7 +23,7 @@
   "dependencies": {
     "dotenv": "^17.3.1",
     "fs": "^0.0.1-security",
-    "nodemailer": "^8.0.1",
+    "nodemailer": "^8.0.6",
     "sinon": "^21.0.1"
   },
   "devDependencies": {
